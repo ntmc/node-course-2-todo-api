@@ -92,8 +92,8 @@ app.patch('/todos/:id', (request, response) => {
 });
 
 app.post('/users', (request, response) => {
-  let {email, password} = _.pick(request.body, ['email', 'password']);
-  let user = new User({email, password});
+  let body = _.pick(request.body, ['email', 'password']);
+  let user = new User(body);
 
   user.save().then(() => {
     return user.generateAuthToken();
