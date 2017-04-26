@@ -107,6 +107,14 @@ app.get('/users/me', authenticate, (request, response) => {
   response.send(request.user);
 });
 
+app.delete('/users/me/token', authenticate, (request, response) => {
+  request.user.removeToken(request.token).then(() => {
+    response.send();
+  }, () => {
+    response.status(400).send();
+  });
+});
+
 app.post('/users/login', (request, response) => {
   let {email, password} = _.pick(request.body, ['email', 'password']);
 
